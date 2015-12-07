@@ -1,0 +1,17 @@
+
+--next
+-js build/android/dream.js
+-main hypno.android.Dream
+-cp src
+-cp ../../lib/om.core/src
+-dce full
+#-debug
+--no-traces
+-D android
+-D analyzer
+
+--next
+-cp src
+-cp ../../lib/om.sys/src
+-D platform=android
+--macro hypno.macro.Build.app()
