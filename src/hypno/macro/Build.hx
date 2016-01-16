@@ -1,6 +1,7 @@
 package hypno.macro;
 
 import haxe.macro.Context;
+import sys.FileSystem.*;
 import om.io.FileSync.*;
 
 class Build {
@@ -15,14 +16,14 @@ class Build {
         platform = Context.definedValue( 'platform' );
         dst = 'build/$platform';
 
-        //syncDirectory( 'res/font', '$dst/font' );
-        //syncDirectory( 'res/image', '$dst/image' );
+        if( exists('res/font') ) syncDirectory( 'res/font', '$dst/font' );
+        if( exists('res/image') ) syncDirectory( 'res/image', '$dst/image' );
 
         switch platform {
         case 'android':
             lessc( 'dream' );
             lessc( 'settings' );
-            syncFile( 'res/android/dream.html', '$dst/dream.html' );
+            syncFile( 'res/android/daydream.html', '$dst/daydream.html' );
             //syncFile( 'res/android/settings.html', '$dst/settings.html' );
             syncDirectory( dst, 'data/android/assets' );
         case 'chrome':

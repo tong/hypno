@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="disktree.net.hypno"
-    android:versionCode="2"
-    android:versionName="1.0.1">
+    android:versionCode="4"
+    android:versionName="1.0.3">
 
     <uses-sdk minSdkVersion="21" targetSdkVersion="21"/>
 
@@ -36,7 +36,7 @@
         </activity>
 
         <service
-            android:name=".Dream"
+            android:name=".DayDream"
             android:exported="true"
             android:label="@string/daydream_name"
             android:permission="android.permission.BIND_DREAM_SERVICE">

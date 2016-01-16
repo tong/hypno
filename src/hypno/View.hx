@@ -68,7 +68,6 @@ void main() {
     public var parameters(default,null) : Parameters;
 
     public var numRings = 100;
-    public var direction = true;
     public var speed = 10.0;
 
     var buffer : Buffer;
@@ -193,7 +192,7 @@ void main() {
 
 		gl.uniform1f( untyped currentProgram.uniformsCache.numRings, numRings );
 		gl.uniform1f( untyped currentProgram.uniformsCache.speed, speed );
-		gl.uniform1i( untyped currentProgram.uniformsCache.direction, direction ? 0 : 1 );
+		//gl.uniform1i( untyped currentProgram.uniformsCache.direction, direction ? 0 : 1 );
 
         //addUniforms();
 		gl.bindBuffer( GL.ARRAY_BUFFER, surface.buffer );
