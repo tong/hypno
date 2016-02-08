@@ -1,0 +1,39 @@
+
+-lib samba
+-main hypno.App
+
+-debug
+
+-lib chrome-extension
+
+-cp ../../lib/om.app/src
+-cp ../../lib/om.html/src
+-cp ../../lib/om.webgl/src
+
+-D no_colors
+-D verbose
+#-D clean
+#-D css_inline
+#-D js_inline
+-D devices=phone,tablet,tv,desktop
+-D dev
+#-D release
+#-D activity_debug
+
+-D name=hypno
+-D version=2.0.3
+-D xmlns=disktree.net.hypno
+
+#-D target=web
+-D target=android
+-D android_app_build
+-D android_target=21
+-D android_version_code=4
+-D android_app_label=Hypno
+
+
+-resource res/shader/hypno-0.frag@hypno-0
+-resource res/shader/hypno-1.frag@hypno-1
+-resource res/shader/hypno-2.frag@hypno-2
+-resource res/shader/hypno-3.frag@hypno-3
+-resource res/shader/hypno-4.frag@hypno-4

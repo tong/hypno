@@ -1,3 +1,6 @@
+*.keystore
+_*
+.samba/
 build/
 data/android/assets
 data/android/bin
