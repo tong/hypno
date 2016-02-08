@@ -21,7 +21,7 @@
 #-D activity_debug
 
 -D name=hypno
--D version=2.0.3
+-D version=2.0.5
 -D xmlns=disktree.net.hypno
 
 #-D target=web
@@ -30,7 +30,6 @@
 -D android_target=21
 -D android_version_code=4
 -D android_app_label=Hypno
-
 
 -resource res/shader/hypno-0.frag@hypno-0
 -resource res/shader/hypno-1.frag@hypno-1

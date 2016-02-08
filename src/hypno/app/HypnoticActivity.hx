@@ -13,8 +13,10 @@ class HypnoticActivity extends om.app.Activity {
     var shaderId : Int;
     var shaderView : FragmentShaderView;
     var animationFrameId : Int;
-    var lastMouseX : Int;
-    var lastMouseY : Int;
+    //var lastMouseX : Int;
+    //var lastMouseY : Int;
+    var lastTouchX : Int;
+    var lastTouchY : Int;
 
     public function new( shaderId : Int ) {
         super();
@@ -26,6 +28,8 @@ class HypnoticActivity extends om.app.Activity {
         super.onCreate();
 
         trace( 'hypno-$shaderId' );
+
+        lastTouchX = lastTouchY = 0;
 
         var canvas = document.createCanvasElement();
         canvas.width = window.innerWidth;
@@ -59,20 +63,23 @@ class HypnoticActivity extends om.app.Activity {
         animationFrameId = window.requestAnimationFrame( update );
 
         window.addEventListener( 'resize', handleWindowResize, false );
-        shaderView.canvas.addEventListener( 'mousemove', handleMouseMove, false );
         shaderView.canvas.addEventListener( 'mousedown', handleMouseDown, false );
-
-        /*
-        element.onclick = function(){
-            //push( new AboutActivity() );
-        }
-        */
+        shaderView.canvas.addEventListener( 'mousemove', handleMouseMove, false );
+        shaderView.canvas.addEventListener( 'touchstart', handleTouchStart, false );
+        shaderView.canvas.addEventListener( 'touchmove', handleTouchMove, false );
     }
 
     override function onStop() {
+
         super.onStop();
+
         window.cancelAnimationFrame( animationFrameId );
+
+        window.removeEventListener( 'resize', handleWindowResize );
+        shaderView.canvas.removeEventListener( 'mousedown', handleMouseDown );
         shaderView.canvas.removeEventListener( 'mousemove', handleMouseMove );
+        shaderView.canvas.removeEventListener( 'touchstart', handleTouchStart );
+        shaderView.canvas.removeEventListener( 'touchmove', handleTouchMove );
     }
 
     function update( time : Float ) {
@@ -80,12 +87,12 @@ class HypnoticActivity extends om.app.Activity {
         shaderView.render( time );
     }
 
-    function handleWindowResize(e) {
-        shaderView.resize( window.innerWidth, window.innerHeight );
+    function handleMouseDown(e) {
+        //App.next( this );
     }
 
     function handleMouseMove(e) {
-
+        /*
         var mouseX = e.clientX;
 		var mouseY = e.clientY;
         if( lastMouseX == mouseX && lastMouseY == mouseY )
@@ -93,11 +100,33 @@ class HypnoticActivity extends om.app.Activity {
         lastMouseX = mouseX;
         lastMouseY = mouseY;
 
-        shaderView.parameters.mouseX = mouseX/100;
-        shaderView.parameters.mouseY = mouseY/100;
+        shaderView.parameters.mouseX = mouseX;
+        shaderView.parameters.mouseY = mouseY;
+        */
     }
 
-    function handleMouseDown(e) {
-        //App.next( this );
+    function handleTouchStart(e) {
+        var touch = e.targetTouches[0];
+        handleTouchInput( touch.pageX, touch.pageY );
+    }
+
+    function handleTouchMove(e) {
+        var touch = e.targetTouches[0];
+        handleTouchInput( touch.pageX, touch.pageY );
+
+        //shaderView.numRings = touch.pageY;
+    }
+
+    function handleTouchInput( x : Int, y : Int ) {
+        if( x == lastTouchX && y == lastTouchY )
+            return;
+        shaderView.speed = - (window.innerWidth/2 - x) / 10;
+        shaderView.numRings = y;
+        lastTouchX = x;
+        lastTouchY = y;
+    }
+
+    function handleWindowResize(e) {
+        shaderView.resize( window.innerWidth, window.innerHeight );
     }
 }

@@ -38,6 +38,7 @@ class App extends samba.App {
         new HypnoticActivity( index ).boot();
         //new hypno.app.AboutActivity().boot();
 
+        /*
         //window.addEventListener();
         trace("DISKTREE.NET");
 
@@ -54,6 +55,7 @@ class App extends samba.App {
         SystemUi.setFlag( SystemUi.HIDE_NAVIGATION | SystemUi.FULLSCREEN );
 
         #end
+        */
     }
 
     static function main() {
