@@ -1,0 +1,5 @@
+build.hxml
+--no-traces
+-lib closure
+-D closure_overwrite
+-D release

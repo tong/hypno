@@ -1,6 +1,7 @@
 
 #ifdef GL_ES
-precision ::precision:: float;
+//precision ::precision:: float;
+precision highp float;
 #endif
 
 #extension GL_OES_standard_derivatives : enable

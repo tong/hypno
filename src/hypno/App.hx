@@ -1,67 +1,53 @@
 package hypno;
 
+import js.Browser.console;
 import js.Browser.document;
 import js.Browser.window;
-import hypno.app.HypnoticActivity;
 
-#if android
-import samba.android.SystemUi;
-#end
+class App {
 
-//@:build(hypno.macro.BuildApp.build())
-//@:keep
-//@:build(hypno.macro.BuildHypnoApp.build())
-class App extends samba.App {
+	static inline function handleContextMenu(e) {
+		e.preventDefault();
+	}
 
-    public static inline var NUM_HYPNOTICS = 5;
-
-    public static var index(default,null) = 0;
-
-    @:access(om.app.Activity)
-    public static function next( currentActitvity : HypnoticActivity ) {
-        if( ++index == NUM_HYPNOTICS ) index = 0;
-        currentActitvity.replace( new HypnoticActivity( index ) );
-    }
-
-    @:access(om.app.Activity)
-    public static function prev( currentActitvity : HypnoticActivity ) {
-        if( --index == -1 ) index = NUM_HYPNOTICS;
-        currentActitvity.replace( new HypnoticActivity( index ) );
-    }
-
-    override function init() {
-
-        #if web
-        // read url params for animation index
-        #end
-
-        new HypnoticActivity( index ).boot();
-        //new hypno.app.AboutActivity().boot();
-
-        /*
-        //window.addEventListener();
-        trace("DISKTREE.NET");
-
-        #if android
-
-        //samba.android.Toast.show( 'Samba!! '+Samba.VERSION );
-        samba.android.Log.d( 'Samba!! '+Samba.VERSION );
-        samba.android.Log.i( 'Samba!! '+Samba.VERSION );
-        samba.android.Log.w( 'Samba!! '+Samba.VERSION );
-        samba.android.Log.e( 'Samba!! '+Samba.VERSION );
-
-        samba.android.Toast.show("DISKTREE.net");
-
-        SystemUi.setFlag( SystemUi.HIDE_NAVIGATION | SystemUi.FULLSCREEN );
-
-        #end
-        */
-    }
+	static inline function handleDoubleClick(e) {
+		om.app.Window.toggleFullscreen();
+	}
 
     static function main() {
-        document.onreadystatechange = function(){
-            if( document.readyState == 'complete' )
-                samba.App.boot( hypno.App );
-        }
+
+		window.onload = function() {
+
+			document.body.innerHTML = '';
+
+			#if debug
+			haxe.Log.trace = _trace;
+			#end
+
+			window.addEventListener( 'contextmenu', handleContextMenu, false );
+			document.body.addEventListener( 'dblclick', handleDoubleClick, false );
+
+			new hypno.app.HypnoActivity().boot();
+		}
     }
+
+	#if debug
+
+	static function _trace( v : Dynamic, ?info : haxe.PosInfos ) {
+		var str = info.fileName+':'+info.lineNumber+': '+v;
+		if( info.customParams != null && info.customParams.length > 0 ) {
+			switch info.customParams[0] {
+				case 'log': console.log( str );
+				case 'debug': console.debug( str );
+				case 'warn': console.warn( str );
+				case 'info': console.info( str );
+				case 'error': console.error( str );
+				default: console.log( str );
+			}
+		} else {
+			console.log( str );
+		}
+	}
+
+	#end
 }

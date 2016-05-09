@@ -1,0 +1,14 @@
+{
+	name: "hypno",
+	version: "3.0.0",
+
+	title: "Hypno",
+	description: 'Hypnotic Animation',
+	language: "en",
+	developer: { name: "disktree", url: "http://disktree.net" },
+	window : {
+		title: 'Hypno',
+		color: '#000',
+		fullscreen: "true"
+	}
+}

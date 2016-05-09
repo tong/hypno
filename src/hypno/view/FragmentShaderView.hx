@@ -1,4 +1,4 @@
-package hypno.webgl;
+package hypno.view;
 
 import js.html.CanvasElement;
 import js.html.webgl.Program;
